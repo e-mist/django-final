@@ -1,0 +1,22 @@
+{% extends "guidance/admin/main.html" %}
+{% load static %}
+{% block headcontent %}
+    <link rel="stylesheet" href="{% static 'guidance/stylesheet/individual.css'%}">
+{% endblock %}
+
+{% block bodycontent %}
+{% csrf_token %}
+<div class="body_content">
+
+</div>
+    <div class="page-container">
+        <img src="{% static 'guidance/assets/Individual-Profile-Sheet-college-1.png'%}" alt="">
+        <img src="{{ form.individualProfileId.studentPhoto.url }}" alt="Student Photo" id="twobytwo">
+        <label style="position: relative; top: 230px; left: -230px;">{{form.individualProfileId.studentId.lastname}}</label>
+        <label style="position: relative; top: 212px; left: 20px;">{{form.individualProfileId.studentId.firstname}}</label>
+        <label style="position: relative; top: 193px; left: 250px;">{{form.individualProfileId.studentId.middlename}}</label>
+        <label style="position: relative; top: 200px; left: -270px;">{{form.individualProfileId.nickName}}</label>
+    </div>
+    <button id="printbutton">Print</button>
+    <script src="{% static 'guidance/scripts/good_moral.js'%}"></script>
+{% endblock %}

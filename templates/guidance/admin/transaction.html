@@ -1,0 +1,38 @@
+
+
+
+
+{% extends "guidance/admin/main.html" %}
+{% load static %}
+{% block title %}Counseling App With Scheduler{% endblock %}
+{% block headcontent %}
+<link rel="stylesheet" type="text/css" href="{% static 'guidance/stylesheet/counseling_app.css'%}">
+{% endblock %}
+{% block bodycontent %}
+
+    <div class="container">
+        {{form.errors}}
+        <h3>GUIDANCE</h3>
+        <span><label id="dir-gray">Home</label><label id="dir-orange"> > Transaction Reports</label></span>
+        <div class="form-container">
+            <table id="info_table">
+                <thead>
+                    <tr>
+                        <th>Transaction ID</th>
+                        <th>Transaction Type</th>
+                        <th>Transaction Date</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for transaction in form %}
+                    <tr>
+                        <td>{{ transaction.transactionId }}</td>
+                        <td>{{ transaction.transactionType }}</td>
+                        <td>{{ transaction.transactionDate }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+{% endblock %}

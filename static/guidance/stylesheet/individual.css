@@ -1,0 +1,33 @@
+.header_container{
+    width: 80%;
+    
+}
+.body_content{
+    
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    height: 100vh;
+    overflow-y: auto;
+}
+.page-container{
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    height: 100vh;
+    overflow-y: auto;
+}
+.page-container img{
+    width: 900px;
+    position: absolute;
+}
+#twobytwo{
+    top: 208px;
+    left: -269px;
+    position: relative;
+    height: 190px;
+    width: 190px;
+}

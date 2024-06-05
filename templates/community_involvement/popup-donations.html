@@ -1,0 +1,113 @@
+<div>
+    <div class="btn-align">
+        <button value="{{ project.title }}" class="show-donate">Donate</button>
+
+    </div>
+    <div class="donate-popup none">
+
+        <div class="donation" action="{% url 'projects' %}" method="POST">
+            <div class="close-popup">
+                <i class="fa-solid fa-circle-xmark close"></i>
+            </div>
+            <h4 style="text-align: center;">Mode of Donation</h4>
+            <div class="mode">
+                <div class="flex gcash_mode">
+                    <input type="radio" name="mode" value="mode1" id="mode" checked="checked">
+                    <label for="">GCash</label>
+                </div>
+                <div class="flex paymaya_mode">
+                    <input type="radio" name="mode" value="mode2" id="mode">
+                    <label for="">PayMaya</label>
+                </div>
+                <div class="flex volunteer_mode">
+                    <input type="radio" name="mode" value="mode3" id="mode">
+                    <label for="">Volunteer</label>
+                </div>
+            </div>
+
+            <!-- GCash (Mode1) -->
+            <div>
+                <div class="gcash">
+                    <form class="mode1" action="{% url 'gcash-mode' %}" method="POST"  enctype="multipart/form-data">
+                        {% csrf_token %}
+                        <h1>Gcash Details</h1>
+                        <div class="gcash-form">
+                            <input class="title" name="title" type="hidden" value="">
+                            <input id="gcash_name" name="name" type="text" placeholder="Enter Name" required>
+                            <input id="gcash_number" name="gcash_number" type="number" placeholder="Enter GCash Number"
+                                required>
+                            <select name="amount" class="amount_gcash" required>
+                                <option value="" selected disabled>Select Amount</option>
+                                <option value="10">10</option>
+                                <option value="20">20</option>
+                                <option value="30">30</option>
+                                <option value="50">50</option>
+                                <option value="100">100</option>
+                                <option value="150">150</option>
+                                <option value="200">200</option>
+                                <option value="500">500</option>
+                                <option value="1000">1000</option>
+                                <option value="5000">5000</option>
+                            </select>
+                            <button type="button" class="nextGcash">Next</button>
+                        </div>
+                        <div class="gcash-img">
+                            <img src="/static/community_involvement/img/gcash-qr.jpg" alt="">
+                            <div class="image-upload">
+                                <!-- <label for="file-input">
+                                    <img src="/static/community_involvement/img/upload.png" />
+                                </label> -->
+                                <label for="">Take screenshot of your reciept.</label>
+                                <input type="file" accept="image/*" name="images" id="file-input" onchange="loadImage(event)"
+                                     required>
+                            </div>
+                            <!-- <div>
+                                <img id="output" />
+                            </div> -->
+                            <button type="submit">Submit</button>
+                            <button type="button" class="close">Cancel</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <!-- PayMaya (Mode2) -->
+            <div>
+                <form class="mode2" action="{% url 'paymaya-mode' %}" method="POST">
+                    {% csrf_token %}
+                    <h1>PayMaya Details</h1>
+                    <input type="hidden" value="mode2" name="mode_type">
+                    <input class="title" name="title" type="hidden" value="">
+                    <input name="name" type="text" placeholder="Enter Name">
+                    <input name="paymaya_number" type="text" placeholder="Enter PayMaya Number">
+                    <input name="amount" type="text" placeholder="Enter Amount">
+                    <button type="submit">Submit</button>
+                </form>
+            </div>
+
+            <!-- Credit Card (Mode3) -->
+            <div>
+                <form class="mode3" action="{% url 'volunteer-mode' %}" method="POST">
+                    {% csrf_token %}
+                    <h1>Volunteer Details</h1>
+                    <input class="title" name="title" type="hidden" value="">
+                    <input type="hidden" name="amount" type="text" value="0">
+                    <input name="name" type="text" placeholder="Enter Name">
+                    <input name="contact_number" type="number" placeholder="Enter Phone Number">
+                    <input name="address_volunteer" type="text" placeholder="Enter Address">
+                    <input name="date_sched" style="font-size: 20px; height: 40px" type="date">
+                    <button type="submit">Submit</button>
+                </form>
+            </div>
+
+
+        </div>
+    </div>
+</div>
+<script>
+    var loadImage = function (event) {
+    // var images = document.getElementById('output');
+    images.src = URL.createObjectURL(event.target.files[0]);
+    // console.log(images.src)
+};
+</script>

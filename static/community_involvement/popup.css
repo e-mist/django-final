@@ -1,0 +1,165 @@
+/* .none {
+    display: none;
+
+} */
+
+.btn-align {
+    display: grid;
+    justify-content: center;
+}
+
+.show-donate {
+    cursor: pointer;
+    border: none;
+    font-size: 18px;
+    background-color: var(--secondary-color);
+    color: white;
+    margin-top: 1rem;
+    width: 100px;
+    height: 40px;
+    border-radius: 25px;
+}
+
+.show-donate:hover {
+    background-color: #ef7801;
+}
+
+.donate-popup {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    box-shadow: 0 0 10px rgb(179, 179, 179);
+    transform: translate(-50%, -50%);
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.3);
+    color: white;
+    z-index: 1000;
+}
+
+.donation {
+    color: rgb(0, 0, 0);
+    padding: 1rem;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 400px;
+    height: 550px;
+    background-color: rgb(240, 240, 240);
+    display: flex;
+    flex-direction: column;
+    border-radius: 15px;
+}
+
+.donation .close-popup {
+    position: relative;
+}
+
+.donation .close-popup i {
+    position: absolute;
+    top: 0;
+    right: 0;
+    cursor: pointer;
+}
+
+.donation .mode {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-top: .5rem;
+}
+
+
+.donation .mode #mode {
+
+    cursor: pointer;
+    width: 1.3rem;
+    height: 1.3rem;
+}
+
+.donation .mode .flex {
+    display: flex;
+    align-items: center;
+    gap: .5rem;
+}
+
+.mode1,
+.mode2,
+.mode3 {
+    display: none;
+    gap: 5%;
+}
+
+.gcash {
+    display: grid;
+}
+
+.gcash-img {
+    display: none;
+    gap: .5rem;
+    text-align: center;
+}
+
+.gcash-img .close{
+    background-color: rgb(212, 52, 52);
+}
+.gcash-img img {
+    width: 10rem;
+    margin: 0 auto;
+}
+
+.gcash-img input{
+    margin: 0 auto;
+}
+
+.mode1 input,
+.mode1 select,
+.mode2 input,
+.mode2 select,
+.mode3 input {
+    font-size: 20px;
+    border-radius: 5px;
+    padding: .5rem 1rem;
+}
+
+
+.mode1 button,
+.mode1 a,
+.mode2 button,
+.mode2 a,
+.mode3 button {
+    cursor: pointer;
+    background-color: var(--secondary-color);
+    justify-self: center;
+    width: 100px;
+    height: 2rem;
+    font-size: 1rem;
+    font-weight: bolder;
+    color: white;
+    border: none;
+    border-radius: 20px;
+}
+
+.mode1 a,
+.mode2 a {
+    text-decoration: none;
+    text-align: center;
+    height: 100%;
+    padding: .5rem 1rem;
+}
+
+.mode1 h1,
+.mode2 h1,
+.mode3 h1 {
+    text-align: center;
+}
+
+.mode {
+    margin-bottom: 15px;
+}
+
+.gcash-form{
+    display: grid;
+    gap: .5rem;
+}
