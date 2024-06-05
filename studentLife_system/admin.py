@@ -9,6 +9,7 @@ from .models import (
     Program,
     Project,
     MOD,
+    QrDonation,
 )
 from .models import (
     IndividualProfileBasicInfo,
@@ -157,9 +158,24 @@ class DonationAdmin(admin.ModelAdmin):
     )
 
 
+class QrDonationAdmin(admin.ModelAdmin):
+    list_display = (
+        "qr_id",
+        "gcash",
+        "bpi",
+        "bdo",
+        "landbank",
+        "pnb",
+        "metro",
+        "union",
+        "china",
+    )
+
+
 admin.site.register(Program, ProgramAdmin)
 admin.site.register(Project, ProjectAdmin)
 admin.site.register(MOD, DonationAdmin)
+admin.site.register(QrDonation, QrDonationAdmin)
 
 
 class IndividualProfileBasicInfoAdmin(admin.ModelAdmin):

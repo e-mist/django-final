@@ -15,9 +15,9 @@
                     <input type="radio" name="mode" value="mode1" id="mode" checked="checked">
                     <label for="">GCash</label>
                 </div>
-                <div class="flex paymaya_mode">
+                <div class="flex bank_mode">
                     <input type="radio" name="mode" value="mode2" id="mode">
-                    <label for="">PayMaya</label>
+                    <label for="">Bank</label>
                 </div>
                 <div class="flex volunteer_mode">
                     <input type="radio" name="mode" value="mode3" id="mode">
@@ -28,7 +28,29 @@
             <!-- GCash (Mode1) -->
             <div>
                 <div class="gcash">
-                    <form class="mode1" action="{% url 'gcash-mode' %}" method="POST"  enctype="multipart/form-data">
+                    {% if user %}
+                    {% for qrcode in qrCodeID %}
+                    <form class="mode1" action="{% url 'gcash_mode_admin' qrcode.qr_id %}" method="POST"
+                        enctype="multipart/form-data">
+                        {% csrf_token %}
+                        <h1>Gcash Qr Code Upload</h1>
+
+                        <div class="gcash-img-admin">
+                            <label for="file-input">
+                                <img src="/static/community_involvement/img/upload.png" />
+                            </label>
+                            <input type="file" accept="image/*" name="images" id="file-input"
+                                onchange="loadImage(event)" style="display: none;" required>
+                            <div>
+                                <img id="output" />
+                            </div>
+                            <button type="submit">Submit</button>
+                            <button type="button" class="closeBtn">Cancel</button>
+                        </div>
+                    </form>
+                    {% endfor %}
+                    {% else %}
+                    <form class="mode1" action="{% url 'gcash-mode' %}" method="POST" enctype="multipart/form-data">
                         {% csrf_token %}
                         <h1>Gcash Details</h1>
                         <div class="gcash-form">
@@ -52,37 +74,71 @@
                             <button type="button" class="nextGcash">Next</button>
                         </div>
                         <div class="gcash-img">
-                            <img src="/static/community_involvement/img/gcash-qr.jpg" alt="">
-                            <div class="image-upload">
-                                <!-- <label for="file-input">
-                                    <img src="/static/community_involvement/img/upload.png" />
-                                </label> -->
-                                <label for="">Take screenshot of your reciept.</label>
-                                <input type="file" accept="image/*" name="images" id="file-input" onchange="loadImage(event)"
-                                     required>
-                            </div>
-                            <!-- <div>
-                                <img id="output" />
-                            </div> -->
+                            {% for qrcode in qrCodeID %}
+                            <img src="{{ qrcode.gcash.url }}" alt="">
+                            {% endfor %}
+                            <label for="">Take screenshot of your reciept.</label>
+                            <input type="file" accept="image/*" name="images" id="file-input"
+                                onchange="loadImage(event)" required>
                             <button type="submit">Submit</button>
-                            <button type="button" class="close">Cancel</button>
+                            <button type="button" class="closeBtn">Cancel</button>
                         </div>
                     </form>
+                    {% endif %}
+
                 </div>
             </div>
 
-            <!-- PayMaya (Mode2) -->
+            <!-- Bank (Mode2) -->
             <div>
-                <form class="mode2" action="{% url 'paymaya-mode' %}" method="POST">
+                <form class="mode2" action="{% url 'bank-mode' %}" method="POST" enctype="multipart/form-data">
                     {% csrf_token %}
-                    <h1>PayMaya Details</h1>
+                    <h1>Bank Details</h1>
+                    <div class="bank-form">
+                        <input class="title" name="title" type="hidden" value="">
+                        <input id="bank_name" name="name" type="text" placeholder="Enter Name" required>
+                        <input id="bank_number" name="number" type="number" placeholder="Enter Account Number" required>
+                        <select name="amount" class="bank_amount" required>
+                            <option value="" selected disabled>Select Amount</option>
+                            <option value="10">10</option>
+                            <option value="20">20</option>
+                            <option value="30">30</option>
+                            <option value="50">50</option>
+                            <option value="100">100</option>
+                            <option value="150">150</option>
+                            <option value="200">200</option>
+                            <option value="500">500</option>
+                            <option value="1000">1000</option>
+                            <option value="5000">5000</option>
+                        </select>
+                        <button type="button" class="nextBank">Next</button>
+                    </div>
+                    <div class="bank-img">
+                        <select name="bank" id="" required>
+                            <option value="" selected disabled>Select Bank</option>
+                            <option value="BPI">BPI</option>
+                            <option value="BDO">BDO</option>
+                        </select>
+                        <!-- {% for qrcode in qrCodeID %}
+                        <img src="{{ qrcode.gcash.url }}" alt="">
+                        {% endfor %} -->
+                        <label for="">Take screenshot of your reciept.</label>
+                        <input type="file" accept="image/*" name="images" id="file-input" onchange="loadImage(event)"
+                            required>
+                        <button type="submit">Submit</button>
+                        <button type="button" class="closeBtn">Cancel</button>
+                    </div>
+                </form>
+                <!-- <form class="mode2" action="{% url 'bank-mode' %}" method="POST">
+                    {% csrf_token %}
+                    <h1>Bank Details</h1>
                     <input type="hidden" value="mode2" name="mode_type">
                     <input class="title" name="title" type="hidden" value="">
                     <input name="name" type="text" placeholder="Enter Name">
-                    <input name="paymaya_number" type="text" placeholder="Enter PayMaya Number">
+                    <input name="paymaya_number" type="text" placeholder="Enter Account Number">
                     <input name="amount" type="text" placeholder="Enter Amount">
                     <button type="submit">Submit</button>
-                </form>
+                </form> -->
             </div>
 
             <!-- Credit Card (Mode3) -->
@@ -106,8 +162,8 @@
 </div>
 <script>
     var loadImage = function (event) {
-    // var images = document.getElementById('output');
-    images.src = URL.createObjectURL(event.target.files[0]);
-    // console.log(images.src)
-};
+        var images = document.getElementById('output');
+        images.src = URL.createObjectURL(event.target.files[0]);
+        // console.log(images.src)
+    };
 </script>

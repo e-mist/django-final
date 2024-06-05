@@ -1,7 +1,9 @@
-/* .none {
+.none {
     display: none;
 
-} */
+}
+
+
 
 .btn-align {
     display: grid;
@@ -91,25 +93,42 @@
     gap: 5%;
 }
 
-.gcash {
+/* .gcash {
     display: grid;
-}
+} */
 
-.gcash-img {
+.gcash-img,
+.bank-img {
     display: none;
     gap: .5rem;
     text-align: center;
 }
 
-.gcash-img .close{
-    background-color: rgb(212, 52, 52);
+.gcash-img-admin {
+    display: grid;
+    gap: .5rem;
+    text-align: center;
 }
-.gcash-img img {
+
+
+.gcash-img-admin label img {
+    cursor: pointer;
+    width: 5rem;
+}
+
+.gcash-img-admin #output {
+    width: 15rem;
+}
+
+.gcash-img img,
+.bank-img img {
     width: 10rem;
     margin: 0 auto;
 }
 
-.gcash-img input{
+.gcash-img input,
+.bank-img input,
+.gcash-img-admin input {
     margin: 0 auto;
 }
 
@@ -159,7 +178,20 @@
     margin-bottom: 15px;
 }
 
-.gcash-form{
+.gcash-form,
+.bank-form {
     display: grid;
     gap: .5rem;
 }
+
+form .closeBtn {
+    background-color: rgb(212, 52, 52);
+}
+
+/* .edit-icon {
+    position: absolute;
+    right: 90px;
+    top: 130px;
+    font-size: 20px;
+    cursor: pointer;
+} */

@@ -61,12 +61,15 @@
             </thead>
             <tbody>
                 {% for donates in loadDonations %}
+                {% if donates.status == None or donates.status == "Declined" %}
+                {% else %}
                 <tr>
                     <td>{{ donates.donated }}</td>
                     <td>{{ donates.name }}</td>
                     <td>{{ donates.donation_type }}</td>
                     <td>{{ donates.date }}</td>
                 </tr>
+                {% endif %}
                 {% endfor %}
             </tbody>
         </table>

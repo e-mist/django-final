@@ -204,6 +204,7 @@ class MOD(models.Model):
     paymaya_number = models.CharField(max_length=11)
 
     image_details = models.ImageField(upload_to="images/")
+    status = models.CharField(max_length=10, null=True, blank=True)
 
     amount = models.IntegerField()
     date = models.DateField(auto_now_add=True)
@@ -214,6 +215,21 @@ class MOD(models.Model):
 
     def __str__(self):
         return self.name
+
+
+class QrDonation(models.Model):
+    qr_id = models.AutoField(primary_key=True)
+    gcash = models.ImageField(upload_to="images/")
+    bpi = models.ImageField(upload_to="images/")
+    bdo = models.ImageField(upload_to="images/")
+    landbank = models.ImageField(upload_to="images/")
+    pnb = models.ImageField(upload_to="images/")
+    metro = models.ImageField(upload_to="images/")
+    union = models.ImageField(upload_to="images/")
+    china = models.ImageField(upload_to="images/")
+
+    def __str__(self):
+        return f"{self.qr_id}"
 
 
 class exit_interview_db(models.Model):

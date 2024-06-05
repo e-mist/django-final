@@ -1,4 +1,4 @@
-    let donates = document.querySelectorAll('.show-donate');
+let donates = document.querySelectorAll('.show-donate');
 
 $.each(donates, function (index, element) {
     element.addEventListener('click', () => {
@@ -42,14 +42,14 @@ $.each(mode, function (index, element) {
     })
 })
 
+// Gcash
+
 let amount_gcash = 0
 
-$('.amount_gcash').on('change', function() {
+$('.amount_gcash').on('change', function () {
     amount_gcash = $(this).find(":selected").val()
 });
 
-
-// Gcash
 let gcash_number = document.querySelectorAll('#gcash_number');
 let gcash_name = document.querySelectorAll('#gcash_name');
 
@@ -69,27 +69,56 @@ $.each(gcash_name, function (index, element) {
 })
 
 $('.nextGcash').click(function () {
-    // console.log(amount_gcash)
-    // console.log(gcash_num)
-    // console.log(gcash_n)
 
-    if (gcash_n == "" || amount_gcash == "" || gcash_num  == "") {
+    if (gcash_n == "" || amount_gcash == "" || gcash_num == "") {
         alert("Please fill in all the required fields");
     } else {
-        $('.paymaya_mode').css("display", "none")
+        $('.bank_mode').css("display", "none")
         $('.volunteer_mode').css("display", "none")
-        
-        $('.gcash-form').css("display", "none");        
+
+        $('.gcash-form').css("display", "none");
         $('.gcash-img').css("display", "grid");
-
-
-    //     // $('.donate-popup h4').css("display", "none");
-    //     // $('.mode').css("display", "none");
-
-    //     // $('.donate-popup h1').css("display", "none");
     }
 })
 
-$('.close').click(function () {
+// Bank
+let bank_amount = 0
+
+$('.bank_amount').on('change', function () {
+    bank_amount = $(this).find(":selected").val()
+});
+
+let bank_number = document.querySelectorAll('#bank_number');
+let bank_name = document.querySelectorAll('#bank_name');
+
+let bank_num = 0
+let bank_n = ""
+
+$.each(bank_number, function (index, element) {
+    element.addEventListener('keyup', () => {
+        bank_num = element.value
+    })
+})
+
+$.each(bank_name, function (index, element) {
+    element.addEventListener('keyup', () => {
+        bank_n = element.value
+    })
+})
+
+$('.nextBank').click(function () {
+
+    if (bank_n == "" || bank_amount == "" || bank_num == "") {
+        alert("Please fill in all the required fields");
+    } else {
+        $('.gcash_mode').css("display", "none")
+        $('.volunteer_mode').css("display", "none")
+
+        $('.bank-form').css("display", "none");
+        $('.bank-img').css("display", "grid");
+    }
+})
+
+$('.closeBtn').click(function () {
     window.location.reload();
 })

@@ -1,0 +1,45 @@
+.form {
+    /* background-color: red; */
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    align-items: center;
+}
+
+.data {
+    margin: 2rem auto;
+    box-shadow: 0 0 5px gray;
+    padding: 1rem;
+    width: 80%;
+    height: 100vh;
+    display: grid;
+    grid-template-rows: 1fr 3fr;
+    /* justify-content: center; */
+}
+
+
+
+.data .table {
+    align-self: start;
+}
+
+.data table {
+    width: 100%;
+    text-align: center;
+    border: 1px solid black;
+    margin: 0 auto;
+}
+
+.data td,
+.data th {
+    border: 1px solid black;
+}
+
+.data thead {
+    background-color: var(--secondary-color);
+    color: white;
+}
+
+.data button {
+    justify-self: center;
+}

@@ -153,11 +153,16 @@ urlpatterns = [
     ),
     # Mode
     path("projects/gcash-mode", views.gcash_mode, name="gcash-mode"),
-    path("projects/paymaya-mode", views.paymaya_mode, name="paymaya-mode"),
+    path("projects/bank-mode", views.bank_mode, name="bank-mode"),
     path("projects/volunteer-mode", views.volunteer_mode, name="volunteer-mode"),
     path("reports/", views.reports, name="reports"),
     path("reports-all/", views.reports_all, name="reports-all"),
     path("reports-find/", views.reports_find, name="reports-find"),
+    path("dashboard/", views.dashboard, name="dashboard"),
+    path("donation/", views.donation, name="donation"),
+    path("donation_accept/<int:id>/", views.donation_accept, name="donation_accept"),
+    path("donation_decline/<int:id>/", views.donation_decline, name="donation_decline"),
+    path("gcash_mode_admin/<int:id>/", views.gcash_mode_admin, name="gcash_mode_admin"),
     # Individual Profile URLS
     path("individual_profile", individualProfile, name="Individual Profile"),
     path(

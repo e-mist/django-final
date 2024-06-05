@@ -1,0 +1,60 @@
+{% extends 'community_involvement/base.html' %}
+
+{% block css %}
+<link rel="stylesheet" href="/static/community_involvement/projects.css">
+<link rel="stylesheet" href="/static/community_involvement/donation.css">
+
+{% endblock%}
+
+{% block content %}
+<div class="header">
+    <h1>Donation Validate</h1>
+</div>
+
+
+<div class="data">
+    <div class="table">
+        <table>
+            <thead>
+                <tr>
+                    <th>Donated</th>
+                    <th>Name</th>
+                    <th>Mode</th>
+                    <th>Date</th>
+                    <th>Status</th>
+                    <th>Details</th>
+                    <th>Options</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for donates in loadDonations %}
+                <tr>
+                    <td>{{ donates.donated }}</td>
+                    <td>{{ donates.name }}</td>
+                    <td>{{ donates.donation_type }}</td>
+                    <td>{{ donates.date }}</td>
+                    {% if donates.status == None %}
+                    <td style="color: rgb(31, 142, 216);">Pending</td>
+                    {% elif donates.status == "Accepted" %}
+                    <td style="color: rgb(41, 142, 41);">Accepted</td>
+                    {% elif donates.status == "Declined" %}
+                    <td style="color: rgb(227, 62, 62);">Declined</td>
+                    {% endif %}
+                    <td><a target="_blank" href="/media/{{ donates.image_details }}">View</a></td>
+                    <td>
+                        {% if donates.status != None %}
+                        {% else %}
+                        <a href="{% url 'donation_accept' donates.id %}">Accept</a>
+                        <a href="{% url 'donation_decline' donates.id %}">Decline</a>
+                        {% endif %}
+
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+</div>
+
+{% endblock %}
