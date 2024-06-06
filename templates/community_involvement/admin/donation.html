@@ -14,6 +14,17 @@
 
 <div class="data">
     <div class="table">
+        <form action="{% url 'donation_filter' %}" method="POST">
+            {% csrf_token %}
+            <select name="filterStatus" required>
+                <option value="" disabled selected>Select Status</option>
+                <option value="Accepted">Accepted</option>
+                <option value="Declined">Declined</option>
+            </select>
+            <button type="submit">Filter</button>
+            <a href="{% url 'donation' %}">Clear</a>
+        </form>
+
         <table>
             <thead>
                 <tr>
@@ -23,7 +34,12 @@
                     <th>Date</th>
                     <th>Status</th>
                     <th>Details</th>
+                    {% for donates in loadDonations %}
+                    {% if donates.status == "Accepted" or donates.status == "Declined" %}
+                    {% else %}
                     <th>Options</th>
+                    {% endif %}
+                    {% endfor %}
                 </tr>
             </thead>
             <tbody>
@@ -41,14 +57,15 @@
                     <td style="color: rgb(227, 62, 62);">Declined</td>
                     {% endif %}
                     <td><a target="_blank" href="/media/{{ donates.image_details }}">View</a></td>
-                    <td>
+                    
                         {% if donates.status != None %}
                         {% else %}
+                        <td>
                         <a href="{% url 'donation_accept' donates.id %}">Accept</a>
                         <a href="{% url 'donation_decline' donates.id %}">Decline</a>
+                        </td>
                         {% endif %}
 
-                    </td>
                 </tr>
                 {% endfor %}
             </tbody>
@@ -56,5 +73,4 @@
     </div>
 
 </div>
-
 {% endblock %}
