@@ -88,7 +88,6 @@ $('.bank_amount').on('change', function () {
 });
 
 
-
 let bank_number = document.querySelectorAll('#bank_number');
 let bank_name = document.querySelectorAll('#bank_name');
 
@@ -107,20 +106,21 @@ $.each(bank_name, function (index, element) {
     })
 })
 
-let bank_card = ""
+// let bank_card = ""
 
-$('.bank_card').on('change', function () {
-    bank_card = $(this).find(":selected").val()
+// $('.bank_card').on('change', function (e) {
+//     e.preventDefault()
 
-    if(bank_card == "BPI"){
-        $('#qr_bank').append(`
-        <img src="{{ qrcode.gcash.url }}" alt="">
-        `)          
-        
+//     bank_card = $(this).find(":selected").val()
 
-        
-     }
-});
+//     if(bank_card == "BPI"){
+                
+//         $('#qr_bank img').attr("src", "{{qrcode.gcash.url}}");
+
+//      }
+
+//     //  location.href = ""
+// });
 
 
 $('.nextBank').click(function () {
@@ -135,10 +135,10 @@ $('.nextBank').click(function () {
         $('.bank-img').css("display", "grid");
 
         
-
-        
     }
 })
+
+
 
 $('.closeBtn').click(function () {
     window.location.reload();
