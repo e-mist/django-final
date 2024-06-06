@@ -163,6 +163,7 @@ urlpatterns = [
     path("donation_accept/<int:id>/", views.donation_accept, name="donation_accept"),
     path("donation_decline/<int:id>/", views.donation_decline, name="donation_decline"),
     path("gcash_mode_admin/<int:id>/", views.gcash_mode_admin, name="gcash_mode_admin"),
+    path("donation_filter/", views.donation_filter, name="donation_filter"),
     # Individual Profile URLS
     path("individual_profile", individualProfile, name="Individual Profile"),
     path(

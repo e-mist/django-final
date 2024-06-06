@@ -4,6 +4,7 @@
 <link rel="stylesheet" href="/static/community_involvement/projects.css">
 <link rel="stylesheet" href="/static/community_involvement/donation.css">
 
+
 {% endblock%}
 
 {% block content %}
@@ -14,6 +15,17 @@
 
 <div class="data">
     <div class="table">
+        <form action="{% url 'donation_filter' %}" method="POST">
+            {% csrf_token %}
+            <select name="filterStatus" required>
+                <option value="" disabled selected>Select Status</option>
+                <option value="Accepted">Accepted</option>
+                <option value="Declined">Declined</option>
+            </select>
+            <button type="submit"><i class="fa-solid fa-filter"></i>Filter</button>
+            <a href="{% url 'donation' %}"><i class='bx bxs-tag-x'></i>Clear</a>
+        </form>
+
         <table>
             <thead>
                 <tr>
@@ -23,7 +35,12 @@
                     <th>Date</th>
                     <th>Status</th>
                     <th>Details</th>
+                    {% for donates in loadDonations %}
+                    {% if donates.status == "Accepted" or donates.status == "Declined" %}
+                    {% else %}
                     <th>Options</th>
+                    {% endif %}
+                    {% endfor %}
                 </tr>
             </thead>
             <tbody>
@@ -34,23 +51,24 @@
                     <td>{{ donates.donation_type }}</td>
                     <td>{{ donates.date }}</td>
                     {% if donates.status == None %}
-                    <td style="color: rgb(31, 142, 216); font-weight: bold;">Pending</td>
+                    <td style="color: rgb(247, 203, 115); font-weight: bold;">Pending</td>
                     {% elif donates.status == "Accepted" %}
                     <td style="color: rgb(41, 142, 41); font-weight: bold;">Accepted</td>
                     {% elif donates.status == "Declined" %}
                     <td style="color: rgb(227, 62, 62); font-weight: bold;">Declined</td>
                     {% endif %}
-                    <td><a target="_blank" href="/media/{{ donates.image_details }}">View</a></td>
+                    <td class="view"><a target="_blank" href="/media/{{ donates.image_details }}">View</a></td>
+
+                    {% if donates.status != None %}
+                    {% else %}
                     <td class="options">
-                        {% if donates.status != None %}
-                        {% else %}
                         <a style="color: rgb(41, 142, 41); font-weight: bold;"
                             href="{% url 'donation_accept' donates.id %}">Accept</a>
                         <a style="color: rgb(227, 62, 62); font-weight: bold;"
                             href="{% url 'donation_decline' donates.id %}">Decline</a>
-                        {% endif %}
-
                     </td>
+                    {% endif %}
+
                 </tr>
                 {% endfor %}
             </tbody>
@@ -58,5 +76,4 @@
     </div>
 
 </div>
-
 {% endblock %}

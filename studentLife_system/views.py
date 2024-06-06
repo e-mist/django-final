@@ -51,6 +51,9 @@ from django.core.mail import send_mail
 from django.http import HttpResponse
 import calendar
 from django.utils import timezone
+from .reportpdf import html2pdf
+from xhtml2pdf import pisa
+from django.template.loader import get_template
 
 # Create your views here.
 
@@ -1125,7 +1128,7 @@ def dashboard(request):
 
 
 def donation(request):
-    loadDonations = MOD.objects.all()
+    loadDonations = MOD.objects.filter(status=None)
     return render(
         request,
         "community_involvement/admin/donation.html",
@@ -1146,6 +1149,21 @@ def donation_decline(request, id):
     MOD.objects.filter(id=id).update(status="Declined")
 
     return redirect("donation")
+
+
+def donation_filter(request):
+    if request.method == "POST":
+        statusFilter = request.POST.get("filterStatus")
+
+        # print(statusFilter)
+
+        filterStatus = MOD.objects.filter(status=statusFilter)
+
+    return render(
+        request,
+        "community_involvement/admin/donation.html",
+        {"loadDonations": filterStatus},
+    )
 
 
 def calculate_age(birth_date):

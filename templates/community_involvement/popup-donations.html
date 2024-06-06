@@ -1,3 +1,5 @@
+{% load static %}
+
 <div>
     <div class="btn-align">
         <button value="{{ project.title }}" class="show-donate">Donate</button>
@@ -118,11 +120,16 @@
                         <button type="button" class="nextBank">Next</button>
                     </div>
                     <div class="bank-img">
-                        <select name="bank" id="" required>
+                        <select name="banks" class="bank_card" required>
                             <option value="" selected disabled>Select Bank</option>
                             <option value="BPI">BPI</option>
                             <option value="BDO">BDO</option>
                         </select>
+                        {% for qrcode in qrCodeID %}
+                        <div id="qr_bank">
+
+                        </div>
+                        {% endfor %}
                         <!-- {% for qrcode in qrCodeID %}
                         <img src="{{ qrcode.gcash.url }}" alt="">
                         {% endfor %} -->

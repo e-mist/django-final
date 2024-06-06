@@ -43,7 +43,6 @@ $.each(mode, function (index, element) {
 })
 
 // Gcash
-
 let amount_gcash = 0
 
 $('.amount_gcash').on('change', function () {
@@ -88,6 +87,8 @@ $('.bank_amount').on('change', function () {
     bank_amount = $(this).find(":selected").val()
 });
 
+
+
 let bank_number = document.querySelectorAll('#bank_number');
 let bank_name = document.querySelectorAll('#bank_name');
 
@@ -106,6 +107,22 @@ $.each(bank_name, function (index, element) {
     })
 })
 
+let bank_card = ""
+
+$('.bank_card').on('change', function () {
+    bank_card = $(this).find(":selected").val()
+
+    if(bank_card == "BPI"){
+        $('#qr_bank').append(`
+        <img src="{{ qrcode.gcash.url }}" alt="">
+        `)          
+        
+
+        
+     }
+});
+
+
 $('.nextBank').click(function () {
 
     if (bank_n == "" || bank_amount == "" || bank_num == "") {
@@ -116,6 +133,10 @@ $('.nextBank').click(function () {
 
         $('.bank-form').css("display", "none");
         $('.bank-img').css("display", "grid");
+
+        
+
+        
     }
 })
 

@@ -76,3 +76,15 @@ form a:hover {
     margin-right: auto;
     margin-left: auto;
 }
+
+form a {
+    margin-top: 10px;
+    display: flex;
+    gap: 5px;
+    align-items: center;
+    width: 18%;
+}
+
+a:hover {
+    text-shadow: 0px 1px 5px rgba(119, 119, 119, 0.47);
+}
