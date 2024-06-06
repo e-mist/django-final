@@ -34,18 +34,20 @@
                     <td>{{ donates.donation_type }}</td>
                     <td>{{ donates.date }}</td>
                     {% if donates.status == None %}
-                    <td style="color: rgb(31, 142, 216);">Pending</td>
+                    <td style="color: rgb(31, 142, 216); font-weight: bold;">Pending</td>
                     {% elif donates.status == "Accepted" %}
-                    <td style="color: rgb(41, 142, 41);">Accepted</td>
+                    <td style="color: rgb(41, 142, 41); font-weight: bold;">Accepted</td>
                     {% elif donates.status == "Declined" %}
-                    <td style="color: rgb(227, 62, 62);">Declined</td>
+                    <td style="color: rgb(227, 62, 62); font-weight: bold;">Declined</td>
                     {% endif %}
                     <td><a target="_blank" href="/media/{{ donates.image_details }}">View</a></td>
-                    <td>
+                    <td class="options">
                         {% if donates.status != None %}
                         {% else %}
-                        <a href="{% url 'donation_accept' donates.id %}">Accept</a>
-                        <a href="{% url 'donation_decline' donates.id %}">Decline</a>
+                        <a style="color: rgb(41, 142, 41); font-weight: bold;"
+                            href="{% url 'donation_accept' donates.id %}">Accept</a>
+                        <a style="color: rgb(227, 62, 62); font-weight: bold;"
+                            href="{% url 'donation_decline' donates.id %}">Decline</a>
                         {% endif %}
 
                     </td>

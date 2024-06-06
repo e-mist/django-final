@@ -52,8 +52,9 @@
                     {% else %}
                     <form class="mode1" action="{% url 'gcash-mode' %}" method="POST" enctype="multipart/form-data">
                         {% csrf_token %}
-                        <h1>Gcash Details</h1>
+
                         <div class="gcash-form">
+                            <h1>Gcash Details</h1>
                             <input class="title" name="title" type="hidden" value="">
                             <input id="gcash_name" name="name" type="text" placeholder="Enter Name" required>
                             <input id="gcash_number" name="gcash_number" type="number" placeholder="Enter GCash Number"
@@ -73,10 +74,13 @@
                             </select>
                             <button type="button" class="nextGcash">Next</button>
                         </div>
+
                         <div class="gcash-img">
+                            <h1>Scan to Donate</h1>
                             {% for qrcode in qrCodeID %}
                             <img src="{{ qrcode.gcash.url }}" alt="">
                             {% endfor %}
+
                             <label for="">Take screenshot of your reciept.</label>
                             <input type="file" accept="image/*" name="images" id="file-input"
                                 onchange="loadImage(event)" required>
