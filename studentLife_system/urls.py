@@ -159,10 +159,11 @@ urlpatterns = [
     path("reports-all/", views.reports_all, name="reports-all"),
     path("reports-find/", views.reports_find, name="reports-find"),
     path("dashboard/", views.dashboard, name="dashboard"),
-    path("donation/", views.donation, name="donation"),
+    path("donation-validate/", views.donation_validate, name="donation-validate"),
     path("donation_accept/<int:id>/", views.donation_accept, name="donation_accept"),
     path("donation_decline/<int:id>/", views.donation_decline, name="donation_decline"),
     path("gcash_mode_admin/<int:id>/", views.gcash_mode_admin, name="gcash_mode_admin"),
+    path("bank_mode_admin/<int:id>/", views.bank_mode_admin, name="bank_mode_admin"),
     path("donation_filter/", views.donation_filter, name="donation_filter"),
     # Individual Profile URLS
     path("individual_profile", individualProfile, name="Individual Profile"),

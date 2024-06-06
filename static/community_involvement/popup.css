@@ -104,19 +104,19 @@
     text-align: center;
 }
 
-.gcash-img-admin {
+.gcash-img-admin, .bank-img-admin {
     display: grid;
     gap: .5rem;
     text-align: center;
 }
 
 
-.gcash-img-admin label img {
+.gcash-img-admin label img, .bank-img-admin label img{
     cursor: pointer;
     width: 5rem;
 }
 
-.gcash-img-admin #output {
+.gcash-img-admin #output, .bank-img-admin #outputBanks{
     width: 15rem;
     height: 14rem;
 }
@@ -129,7 +129,7 @@
 
 .gcash-img input,
 .bank-img input,
-.gcash-img-admin input {
+.gcash-img-admin input, .bank-img-admin input {
     margin: 0 auto;
 }
 
@@ -137,7 +137,8 @@
 .mode1 select,
 .mode2 input,
 .mode2 select,
-.mode3 input {
+.mode3 input,
+.mode3 select {
     font-size: 20px;
     border-radius: 5px;
     padding: .5rem 1rem;
@@ -180,7 +181,7 @@
 }
 
 .gcash-form,
-.bank-form {
+.bank-form, .volunteer-form {
     display: grid;
     gap: .5rem;
 }
