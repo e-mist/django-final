@@ -139,7 +139,7 @@
                             <option value="UNION BANK">UNION BANK</option>
                             <option value="CHINA BANK">CHINA BANK</option>
                         </select>
-                        <input id="bank_number" name="number" type="number" placeholder="Enter Account Number" required>
+                        <input id="bank_number" name="bank_number" type="number" placeholder="Enter Account Number" required>
                         <select name="amount" class="bank_amount" required>
                             <option value="" selected disabled>Select Amount</option>
                             <option value="10">10</option>
@@ -196,7 +196,7 @@
                             <option value="SAO OFFICE">SAO OFFICE</option>
                         </select>
                         <label style="display: none;" class="confirmation_label" for="">Send your confirmation photo below.</label>
-                        <input style="display: none;" class="confirmation_photo" type="file" accept="image/*" name="images" onchange="loadImage(event)"
+                        <input style="display: none;" class="confirmation_photo" type="file" accept="image/*" name="confirmation_photo" onchange="loadImage(event)"
                             required>
                         <input style="display: none;" name="date_sched" class="date_sched" type="date">
                         <button type="submit">Submit</button>

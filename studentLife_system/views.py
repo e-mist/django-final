@@ -1097,13 +1097,13 @@ def volunteer_mode(request):
         donated = request.POST["title"]
         name = request.POST["name"]
         contact_number = request.POST["contact_number"]
-        images = request.FILES.getlist("images")
-
+        confirmation_photo = request.FILES.getlist("confirmation_photo")
         what_kind = request.POST["what_kind"]
 
-        for image in images:
-            if what_kind == "CAN GOODS":
+        print(name, contact_number, confirmation_photo, what_kind)
 
+        for image in confirmation_photo:
+            if what_kind == "CAN GOODS":
                 donation = MOD(
                     donation_type="Volunteer",
                     donated=donated,
@@ -1193,13 +1193,26 @@ def dashboard(request):
 
 def donation_validate(request):
     loadDonations = MOD.objects.filter(status=None)
+    
+    contex = {}
+
+    for status in loadDonations:
+        if status == None:
+            context = {
+            "url": "report",
+            "loadDonations": loadDonations,
+            "status": status
+            }
+        else:
+            context = {
+            "url": "report",
+            "loadDonations": loadDonations,
+            }
+
     return render(
         request,
         "community_involvement/admin/donation-validate.html",
-        {
-            "url": "report",
-            "loadDonations": loadDonations,
-        },
+        context,
     )
 
 

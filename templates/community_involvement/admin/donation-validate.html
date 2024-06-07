@@ -22,7 +22,7 @@
                 <option value="Declined">Declined</option>
             </select>
             <button type="submit">Filter</button>
-            <a href="{% url 'donation' %}">Clear</a>
+            <a href="{% url 'donation-validate' %}">Clear</a>
         </form>
 
         <table>
@@ -34,12 +34,11 @@
                     <th>Date</th>
                     <th>Status</th>
                     <th>Details</th>
-                    {% for donates in loadDonations %}
-                    {% if donates.status == "Accepted" or donates.status == "Declined" %}
-                    {% else %}
+                    {% if status == None %}
                     <th>Options</th>
+                    {% else %}
+                    
                     {% endif %}
-                    {% endfor %}
                 </tr>
             </thead>
             <tbody>
@@ -58,12 +57,13 @@
                     {% endif %}
                     <td><a target="_blank" href="/media/{{ donates.image_details }}">View</a></td>
                     
-                        {% if donates.status != None %}
-                        {% else %}
+                        {% if status == None %}
                         <td>
-                        <a href="{% url 'donation_accept' donates.id %}">Accept</a>
-                        <a href="{% url 'donation_decline' donates.id %}">Decline</a>
+                            <a href="{% url 'donation_accept' donates.id %}">Accept</a>
+                            <a href="{% url 'donation_decline' donates.id %}">Decline</a>
                         </td>
+                        {% else %}
+                        
                         {% endif %}
 
                 </tr>

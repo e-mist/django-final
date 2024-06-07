@@ -202,8 +202,8 @@ class MOD(models.Model):
     donation_type = models.CharField(max_length=10)
     gcash_number = models.CharField(max_length=11)
 
-    bank_number = models.CharField(max_length=11, default=None)
-    bank_card = models.CharField(max_length=20, default=None)
+    bank_number = models.CharField(max_length=11)
+    bank_card = models.CharField(max_length=20)
 
     image_details = models.ImageField(upload_to="images/")
     status = models.CharField(max_length=10, null=True, blank=True)
@@ -211,9 +211,9 @@ class MOD(models.Model):
     amount = models.IntegerField()
     date = models.DateField(auto_now_add=True)
 
-    what_kind = models.CharField(max_length=20, default=None)
-    recepient = models.CharField(max_length=20, default=None)
-    recepient_things = models.CharField(max_length=20, default=None)
+    what_kind = models.CharField(max_length=20)
+    recepient = models.CharField(max_length=20)
+    recepient_things = models.CharField(max_length=20)
     contact_number = models.CharField(max_length=11)
     date_sched = models.CharField(max_length=20)
 
