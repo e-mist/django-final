@@ -9,10 +9,11 @@
 <div class="header">
     <h1>Donation Volunteer</h1>
 </div>
-
-<a href="{% url 'donation_dashboard' %}"><- Back</a>
+<div class="back">
+    <a href="{% url 'donation_dashboard' %}"><i class='bx bx-arrow-back'></i>Back</a>
+</div>
 <div class="data">
-    
+
     <div class="table">
         <table>
             <thead>
@@ -41,7 +42,7 @@
                     {% else %}
                     <td></td>
                     {% endif %}
-                    
+
                     {% if donates.what_kind == "RELIEF GOODS" %}
                     <td>{{ donates.recepient_things}}</td>
                     {% elif donates.what_kind == "BELONGINGS" %}
@@ -59,7 +60,7 @@
                     {% else %}
                     <td></td>
                     {% endif %}
-                    
+
                     <td>{{ donates.date }}</td>
                     <td class="view"><a target="_blank" href="/media/{{ donates.image_details }}">View</a></td>
                 </tr>

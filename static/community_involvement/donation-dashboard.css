@@ -1,4 +1,4 @@
-.buttons{
+.buttons {
     /* background-color: red; */
 
     width: 20rem;
@@ -6,17 +6,28 @@
     display: grid;
     justify-content: center;
     align-items: center;
-    margin: 5rem auto;
+    margin: 6rem auto;
 }
 
-.buttons div{
+.buttons div {
     display: grid;
     text-align: center;
 }
-.buttons div a{
+
+.buttons div a {
+    border-radius: 10px;
+    font-weight: bold;
+    border: 2px solid black;
     font-size: large;
     text-decoration: none;
-    background-color: rgb(0, 0, 0);
+    background-color: white;
     padding: 1rem 4rem;
-    color: white;
+    color: rgb(0, 0, 0);
+}
+
+.buttons a:hover {
+    background: var(--secondary-color);
+    border: 5%;
+    border-color: black;
+    color: rgb(255, 255, 255);
 }
