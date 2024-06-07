@@ -1254,20 +1254,25 @@ def volunteer_dashboard(request):
 def donation_validate(request):
     loadDonations = MOD.objects.filter(status=None)
     
-    contex = {}
+    context = {}
 
-    for status in loadDonations:
-        if status == None:
-            context = {
-            "url": "report",
-            "loadDonations": loadDonations,
-            "status": status
-            }
-        else:
-            context = {
-            "url": "report",
-            "loadDonations": loadDonations,
-            }
+    if int(MOD.objects.count()) == 0:
+        cotext = {
+            "url": "report"
+        }
+    else:
+        for status in loadDonations:
+            if status == None:
+                context = {
+                "url": "report",
+                "loadDonations": loadDonations,
+                "status": status
+                }
+            else:
+                context = {
+                "url": "report",
+                "loadDonations": loadDonations,
+                }
 
     return render(
         request,

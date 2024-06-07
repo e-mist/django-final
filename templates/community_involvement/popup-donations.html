@@ -96,41 +96,42 @@
             <!-- Bank (Mode2) -->
             <div>
                 {% if user %}
-                    {% for qrcode in qrCodeID %}
-                    <form class="mode2" action="{% url 'bank_mode_admin' qrcode.qr_id %}" method="POST"
-                        enctype="multipart/form-data">
-                        {% csrf_token %}
-                        <h1>Banks Qr Code Upload</h1>
-                        <div class="bank-img-admin">
-                            <select name="banks" class="bank_card" required>
-                                <option value="" selected disabled>Select Bank</option>
-                                <option value="BPI">BPI</option>
-                                <option value="BDO">BDO</option>
-                                <option value="LANDBACK">LANDBACK</option>
-                                <option value="PNB">PNB</option>
-                                <option value="METRO BANK">METRO BANK</option>
-                                <option value="UNION BANK">UNION BANK</option>
-                                <option value="CHINA BANK">CHINA BANK</option>
-                            </select>
-                            <label for="file-banks">
-                                <img src="/static/community_involvement/img/upload.png" />
-                            </label>
-                            <input type="file" accept="image/*" name="images" id="file-banks"
-                                onchange="loadImageBanks(event)" style="display: none;" required>
+                {% for qrcode in qrCodeID %}
+                <form class="mode2" action="{% url 'bank_mode_admin' qrcode.qr_id %}" method="POST"
+                    enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <h1>Banks Qr Code Upload</h1>
+                    <div class="bank-img-admin">
+                        <select name="banks" class="bank_card" required>
+                            <option value="" selected disabled>Select Bank</option>
+                            <option value="BPI">BPI</option>
+                            <option value="BDO">BDO</option>
+                            <option value="LANDBACK">LANDBACK</option>
+                            <option value="PNB">PNB</option>
+                            <option value="METRO BANK">METRO BANK</option>
+                            <option value="UNION BANK">UNION BANK</option>
+                            <option value="CHINA BANK">CHINA BANK</option>
+                        </select>
+                        <label for="file-banks">
+                            <img src="/static/community_involvement/img/upload.png" />
+                        </label>
+                        <input type="file" accept="image/*" name="images" id="file-banks"
+                            onchange="loadImageBanks(event)" style="display: none;" required>
+                        <div>
                             <div>
-                                <div>
-                                    <img id="outputBanks" />
-                                </div>
+                                <img id="outputBanks" />
+                            </div>
                             <button type="submit">Submit</button>
                             <button type="button" class="closeBtn">Cancel</button>
                         </div>
-                    </form>
-                    {% endfor %}
+                </form>
+                {% endfor %}
                 {% else %}
-                    <form class="mode2" action="{% url 'bank-mode' %}" method="POST" enctype="multipart/form-data">
+                <form class="mode2" action="{% url 'bank-mode' %}" method="POST" enctype="multipart/form-data">
                     {% csrf_token %}
-                    <h1>Bank Details</h1>
+
                     <div class="bank-form">
+                        <h1>Bank Details</h1>
                         <input class="title" name="title" type="hidden" value="">
                         <input id="bank_name" name="name" type="text" placeholder="Enter Name" required>
                         <select name="banks" class="bank_card" required>
@@ -143,7 +144,8 @@
                             <option value="UNION BANK">UNION BANK</option>
                             <option value="CHINA BANK">CHINA BANK</option>
                         </select>
-                        <input id="bank_number" name="bank_number" type="number" placeholder="Enter Account Number" required>
+                        <input id="bank_number" name="bank_number" type="number" placeholder="Enter Account Number"
+                            required>
                         <select name="amount" class="bank_amount" required>
                             <option value="" selected disabled>Select Amount</option>
                             <option value="10">10</option>
@@ -160,14 +162,15 @@
                         <button type="button" class="nextBank">Next</button>
                     </div>
                     <div class="bank-img">
+                        <h1>Scan to Donate</h1>
                         {% for qrcode in qrCodeID %}
                         <div id="qr_bank">
                             <img src="">
                         </div>
                         {% endfor %}
+
                         <label for="">Take screenshot of your reciept.</label>
-                        <input type="file" accept="image/*" name="images" onchange="loadImage(event)"
-                            required>
+                        <input type="file" accept="image/*" name="images" onchange="loadImage(event)" required>
                         <button type="submit">Submit</button>
                         <button type="button" class="closeBtn">Cancel</button>
                     </div>
@@ -218,49 +221,49 @@
 {% for qrcode in qrCodeID %}
 <script src="/static/community_involvement/jquery.js"></script>
 <script>
-    
-$('.bank_card').on('change', function (e) {
-    e.preventDefault()
 
-    bank_card = $(this).find(":selected").val()
+    $('.bank_card').on('change', function (e) {
+        e.preventDefault()
 
-    if(bank_card == "BPI"){ 
-                
-        $('#qr_bank img').attr("src", "{{qrcode.bpi.url}}");
+        bank_card = $(this).find(":selected").val()
 
-     }
-     if(bank_card == "BDO"){ 
+        if (bank_card == "BPI") {
 
-        $('#qr_bank img').attr("src", "{{qrcode.bdo.url}}");
-        
-    }
-    if(bank_card == "LANDBANK"){ 
-                
-        $('#qr_bank img').attr("src", "{{qrcode.landbank.url}}");
+            $('#qr_bank img').attr("src", "{{qrcode.bpi.url}}");
 
-     }
-     if(bank_card == "PNB"){ 
+        }
+        if (bank_card == "BDO") {
 
-        $('#qr_bank img').attr("src", "{{qrcode.pnb.url}}");
-        
-    }
-    if(bank_card == "METRO BANK"){ 
-                
-        $('#qr_bank img').attr("src", "{{qrcode.metro.url}}");
+            $('#qr_bank img').attr("src", "{{qrcode.bdo.url}}");
 
-     }
-     if(bank_card == "UNION BANK"){ 
+        }
+        if (bank_card == "LANDBANK") {
 
-        $('#qr_bank img').attr("src", "{{qrcode.union.url}}");
-        
-    }
-    if(bank_card == "CHINA BANK"){ 
+            $('#qr_bank img').attr("src", "{{qrcode.landbank.url}}");
 
-        $('#qr_bank img').attr("src", "{{qrcode.china.url}}");
-        
-    }
+        }
+        if (bank_card == "PNB") {
 
-});
+            $('#qr_bank img').attr("src", "{{qrcode.pnb.url}}");
+
+        }
+        if (bank_card == "METRO BANK") {
+
+            $('#qr_bank img').attr("src", "{{qrcode.metro.url}}");
+
+        }
+        if (bank_card == "UNION BANK") {
+
+            $('#qr_bank img').attr("src", "{{qrcode.union.url}}");
+
+        }
+        if (bank_card == "CHINA BANK") {
+
+            $('#qr_bank img').attr("src", "{{qrcode.china.url}}");
+
+        }
+
+    });
 
 </script>
 {% endfor %}
@@ -276,92 +279,101 @@ $('.bank_card').on('change', function (e) {
         images.src = URL.createObjectURL(event.target.files[0]);
     };
 
-    var loadImageVolunteer = function (event) {
-        var images = document.getElementById('outputBanks');
-        images.src = URL.createObjectURL(event.target.files[0]);
-    };
+    // var loadImageVolunteer = function (event) {
+    //     var images = document.getElementById('outputBanks');
+    //     images.src = URL.createObjectURL(event.target.files[0]);
+    // };
 
+
+    // Volunteer
+    let volunteer_amount = 0
+
+    $('.volunteer_amount').on('change', function () {
+        volunteer_amount = $(this).find(":selected").val()
+        console.log(volunteer_amount)
+    });
+
+    let contact_number = document.querySelectorAll('#contact_number');
+    let volunteer_name = document.querySelectorAll('#volunteer_name');
+
+    let contact_num = 0
+    let volunteer_n = ""
+
+    $.each(contact_number, function (index, element) {
+        element.addEventListener('keyup', () => {
+            contact_num = element.value
+            console.log(contact_num)
+        })
+    })
+
+    $.each(volunteer_name, function (index, element) {
+        element.addEventListener('keyup', () => {
+            volunteer_n = element.value
+            console.log(volunteer_n)
+        })
+    })
+
+    $('.what_kind').on('change', function(e){
+        e.preventDefault()
+
+        what_kind = $(this).find(":selected").val()
+        console.log(what_kind)
+
+        if(what_kind == "RELIEF GOODS"){ 
+            $('.recepient').css("display", "none");
+            $('.confirmation_label').css("display", "block");
+            $('.confirmation_photo').css("display", "block");
+            $('.date_sched').css("display", "none");
+            $('.volunteer_amount').css("display", "none");
+            $('.recepient_things').css("display", "block");
+
+        }
+        
+        if(what_kind == "SERVICE"){ 
+            $('.recepient').css("display", "none");
+            $('.confirmation_label').css("display", "none");
+            $('.confirmation_photo').css("display", "none");
+            $('.recepient_things').css("display", "none");
+            $('.volunteer_amount').css("display", "none");
+            $('.date_sched').css("display", "block");
+        }
+
+        if(what_kind == "WORK") {
+                $('.recepient').css("display", "none");
+                $('.confirmation_label').css("display", "none");
+                $('.confirmation_photo').css("display", "none");
+                $('.recepient_things').css("display", "none");
+                $('.volunteer_amount').css("display", "none");
+                $('.date_sched').css("display", "block");
+            }
+
+        if(what_kind == "BELONGINGS") {
+                $('.recepient').css("display", "none");
+                $('.confirmation_label').css("display", "block");
+                $('.confirmation_photo').css("display", "block");
+                $('.recepient_things').css("display", "block");
+                $('.volunteer_amount').css("display", "none");
+                $('.date_sched').css("display", "none");
+            }
+
+        if(what_kind == "MONEY"){ 
+            $('.recepient').css("display", "block");
+            $('.confirmation_label').css("display", "block");
+            $('.confirmation_photo').css("display", "block");
+            $('.recepient_things').css("display", "none");
+            $('.volunteer_amount').css("display", "block");
+            $('.date_sched').css("display", "none");
+        }
+
+        if(what_kind == "EQUIPMENTS"){
+            $('.recepient').css("display", "none");
+            $('.confirmation_label').css("display", "block");
+            $('.confirmation_photo').css("display", "block");
+            $('.recepient_things').css("display", "block");
+            $('.volunteer_amount').css("display", "none");
+            $('.date_sched').css("display", "none");
+        }
+
+    });
     
-// Volunteer
-let volunteer_amount = 0
-
-$('.volunteer_amount').on('change', function () {
-    volunteer_amount = $(this).find(":selected").val()
-    console.log(volunteer_amount)
-});
-
-let contact_number = document.querySelectorAll('#contact_number');
-let volunteer_name = document.querySelectorAll('#volunteer_name');
-
-let contact_num = 0
-let volunteer_n = ""
-
-$.each(contact_number, function (index, element) {
-    element.addEventListener('keyup', () => {
-        contact_num = element.value
-        console.log(contact_num)
-    })
-})
-
-$.each(volunteer_name, function (index, element) {
-    element.addEventListener('keyup', () => {
-        volunteer_n = element.value
-        console.log(volunteer_n)
-    })
-})
-
-$('.what_kind').on('change', function (e) {
-    e.preventDefault()
-
-    what_kind = $(this).find(":selected").val()
-    console.log(what_kind)
-
-    if(what_kind == "RELIEF GOODS"){ 
-                
-        $('.recepient').css("display", "none");
-        $('.confirmation_label').css("display", "block");
-        $('.confirmation_photo').css("display", "block");
-        $('.date_sched').css("display", "none");
-        $('.volunteer_amount').css("display", "none");
-        $('.recepient_things').css("display", "block");
-
-    }
-
-    if(what_kind == "SERVICE"){ 
-        $('.recepient').css("display", "none");
-        $('.confirmation_label').css("display", "none");
-        $('.confirmation_photo').css("display", "none");
-        $('.recepient_things').css("display", "none");
-        $('.volunteer_amount').css("display", "none");
-        $('.date_sched').css("display", "block");
-    }
-
-    if(what_kind == "BELONGINGS"){ 
-        $('.recepient').css("display", "none");
-        $('.confirmation_label').css("display", "block");
-        $('.confirmation_photo').css("display", "block");
-        $('.recepient_things').css("display", "block");
-        $('.volunteer_amount').css("display", "none");
-        $('.date_sched').css("display", "none");
-    }
-
-    if(what_kind == "EQUIPMENTS"){ 
-        $('.recepient').css("display", "none");
-        $('.confirmation_label').css("display", "block");
-        $('.confirmation_photo').css("display", "block");
-        $('.recepient_things').css("display", "block");
-        $('.volunteer_amount').css("display", "none");
-        $('.date_sched').css("display", "none");
-    }
-
-    if(what_kind == "MONEY"){ 
-        $('.recepient').css("display", "block");
-        $('.confirmation_label').css("display", "block");
-        $('.confirmation_photo').css("display", "block");
-        $('.recepient_things').css("display", "none");
-        $('.volunteer_amount').css("display", "block");
-        $('.date_sched').css("display", "none");
-    }
-
-});
 </script>
