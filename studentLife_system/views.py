@@ -1092,19 +1092,27 @@ def bank_mode_admin(request, id):
 
 def volunteer_mode(request):
     if request.method == "POST":
-        MOD(request.POST)
 
         donated = request.POST["title"]
         name = request.POST["name"]
         contact_number = request.POST["contact_number"]
-        confirmation_photo = request.FILES.getlist("confirmation_photo")
+        confirmation_photo = request.FILES.getlist("images")
         what_kind = request.POST["what_kind"]
 
-        print(name, contact_number, confirmation_photo, what_kind)
-
         for image in confirmation_photo:
-            if what_kind == "CAN GOODS":
-                donation = MOD(
+            if what_kind == "RELIEF GOODS":
+                MOD.objects.create(
+                    donation_type="Volunteer",
+                    donated=donated,
+                    name=name,
+                    contact_number=contact_number,
+                    what_kind=what_kind,
+                    recepient_things=request.POST['recepient_things'],
+                    image_details=image,
+                )
+            
+            if what_kind == "BELONGINGS":
+                MOD.objects.create(
                     donation_type="Volunteer",
                     donated=donated,
                     name=name,
@@ -1114,7 +1122,41 @@ def volunteer_mode(request):
                     image_details=image,
                 )
 
-                donation.save()
+            if what_kind == "EQUIPMENTS":
+                MOD.objects.create(
+                    donation_type="Volunteer",
+                    donated=donated,
+                    name=name,
+                    contact_number=contact_number,
+                    what_kind=what_kind,
+                    recepient_things=request.POST['recepient_things'],
+                    image_details=image,
+                )
+
+            if what_kind == "MONEY":
+                recepient_name = request.POST['recepient_name']
+
+                MOD.objects.create(
+                    donation_type="Volunteer",
+                    donated=donated,
+                    name=name,
+                    contact_number=contact_number,
+                    amount=request.POST['volunteer_amount'],
+                    what_kind=what_kind,
+                    recepient=recepient_name,
+                    image_details=image,
+                )
+            
+        if what_kind == "SERVICE":
+                MOD.objects.create(
+                    donation_type="Volunteer",
+                    donated=donated,
+                    name=name,
+                    contact_number=contact_number,
+                    what_kind=what_kind,
+                    date_sched=request.POST['date_sched'],
+                )
+
         
         # date_sched = request.POST["date_sched"]
         # amount = request.POST["amount"]
@@ -1190,6 +1232,24 @@ def dashboard(request):
         {"user": user},
     )
 
+def donation_dashboard(request):
+
+    return render(request, "community_involvement/admin/donation.html")
+
+def gcash_dashboard(request):
+    loadGcashDonations = MOD.objects.filter(donation_type="GCash", status="Accepted")
+
+    return render(request, "community_involvement/admin/gcash-dashboard.html", {"loadGcashDonations": loadGcashDonations})
+
+def banks_dashboard(request):
+    loadBanksDonations = MOD.objects.filter(donation_type="Bank", status="Accepted")
+
+    return render(request, "community_involvement/admin/banks-dashboard.html", {"loadBanksDonations": loadBanksDonations})
+
+def volunteer_dashboard(request):
+    loadVolunteerDonations = MOD.objects.filter(donation_type="Volunteer", status="Accepted")
+
+    return render(request, "community_involvement/admin/volunteer-dashboard.html", {"loadVolunteerDonations": loadVolunteerDonations})
 
 def donation_validate(request):
     loadDonations = MOD.objects.filter(status=None)
@@ -1219,13 +1279,13 @@ def donation_validate(request):
 def donation_accept(request, id):
     MOD.objects.filter(id=id).update(status="Accepted")
 
-    return redirect("donation")
+    return redirect("donation-validate")
 
 
 def donation_decline(request, id):
     MOD.objects.filter(id=id).update(status="Declined")
 
-    return redirect("donation")
+    return redirect("donation-validate")
 
 
 def donation_filter(request):
@@ -1233,13 +1293,18 @@ def donation_filter(request):
         statusFilter = request.POST.get("filterStatus")
 
         # print(statusFilter)
+        if statusFilter == "Accepted" or statusFilter == "Declined":
+            status = "Yes"
+        else:
+            status = None
 
         filterStatus = MOD.objects.filter(status=statusFilter)
 
+
     return render(
         request,
-        "community_involvement/admin/donation.html",
-        {"loadDonations": filterStatus},
+        "community_involvement/admin/donation-validate.html",
+        {"loadDonations": filterStatus, 'status': status},
     )
 
 

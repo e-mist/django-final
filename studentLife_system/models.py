@@ -208,14 +208,14 @@ class MOD(models.Model):
     image_details = models.ImageField(upload_to="images/")
     status = models.CharField(max_length=10, null=True, blank=True)
 
-    amount = models.IntegerField()
+    amount = models.IntegerField(default=0)
     date = models.DateField(auto_now_add=True)
 
     what_kind = models.CharField(max_length=20)
-    recepient = models.CharField(max_length=20)
-    recepient_things = models.CharField(max_length=20)
+    recepient = models.CharField(max_length=20, default="")
+    recepient_things = models.CharField(max_length=20, default="")
     contact_number = models.CharField(max_length=11)
-    date_sched = models.CharField(max_length=20)
+    date_sched = models.CharField(max_length=20, default="")
 
     def __str__(self):
         return self.name
