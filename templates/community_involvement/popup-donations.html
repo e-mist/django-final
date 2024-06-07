@@ -177,33 +177,34 @@
 
             <!-- Volunteer (Mode3) -->
             <div>
-                <form class="mode3" action="{% url 'volunteer-mode' %}" method="POST">
+                <form class="mode3" action="{% url 'volunteer-mode' %}" method="POST" enctype="multipart/form-data">
                     {% csrf_token %}
                     <h1>Volunteer Details</h1>
                     <div class="volunteer-form">
                         <input class="title" name="title" type="hidden" value="">
-                        <input name="name" id="volunteer_name" type="text" placeholder="Enter Name">
-                        <input name="contact_number" id="contact_number" type="number" placeholder="Enter Phone Number">
+                        <input name="name" id="volunteer_name" type="text" placeholder="Enter Name" required>
+                        <input name="contact_number" id="contact_number" type="number" placeholder="Enter Phone Number" required>
                         <select name="what_kind" class="what_kind" required>
                             <option value="" selected disabled>Select what kind of donation</option>
-                            <option value="CAN GOODS">CAN GOODS</option>
+                            <option value="RELIEF GOODS">RELIEF GOODS</option>
                             <option value="BELONGINGS">BELONGINGS</option>
                             <option value="MONEY">MONEY</option>
                             <option value="EQUIPMENTS">EQUIPMENTS</option>
-                            <option value="WORK">WORK</option>
+                            <option value="SERVICE">SERVICE</option>
                         </select>
-                        <input style="display: none;" disabled class="recepient" name="recepient"
-                            value="Hon. Wilmer B. Pantinople" type="text" placeholder="Hon. Wilmer B. Pantinople">
-                        <input style="display: none;" class="volunteer_amount" type="number" placeholder="Enter amount">
-                        <select style="display: none;" name="recepient_things" class="recepient_things" required>
+                        <select style="display: none;" class="recepient" name="recepient_name" id="">
+                            <option value="Hon. Wilmer B. Pantinople">Hon. Wilmer B. Pantinople</option>
+                            <option value="Hon. Zykki Belle Ogario">Hon. Zykki Belle Ogario</option>
+                        </select>
+                        <input style="display: none;" class="volunteer_amount" name="volunteer_amount" type="number" placeholder="Enter amount">   
+                        <select style="display: none;" name="recepient_things" class="recepient_things">
                             <option value="" selected disabled>Recepient</option>
                             <option value="SSG OFFICE">SSG OFFICE</option>
                             <option value="SAO OFFICE">SAO OFFICE</option>
                         </select>
-                        <label style="display: none;" class="confirmation_label" for="">Send your confirmation photo
-                            below.</label>
-                        <input style="display: none;" class="confirmation_photo" type="file" accept="image/*"
-                            name="confirmation_photo" onchange="loadImage(event)" required>
+                        <label style="display: none;" class="confirmation_label" for="">Send your confirmation photo below.</label>
+                        <input style="display: none;" class="confirmation_photo" type="file" accept="image/*" name="images" id="file-input"
+                                onchange="loadImage(event)">
                         <input style="display: none;" name="date_sched" class="date_sched" type="date">
                         <button type="submit">Submit</button>
                     </div>
@@ -268,15 +269,17 @@
     var loadImage = function (event) {
         var images = document.getElementById('output');
         images.src = URL.createObjectURL(event.target.files[0]);
-        console.log(images)
-        console.log(images.src)
     };
 
     var loadImageBanks = function (event) {
         var images = document.getElementById('outputBanks');
         images.src = URL.createObjectURL(event.target.files[0]);
-
     };
+
+    // var loadImageVolunteer = function (event) {
+    //     var images = document.getElementById('outputBanks');
+    //     images.src = URL.createObjectURL(event.target.files[0]);
+    // };
 
 
     // Volunteer
@@ -307,13 +310,13 @@
         })
     })
 
-    $('.what_kind').on('change', function (e) {
+    $('.what_kind').on('change', function(e){
         e.preventDefault()
 
         what_kind = $(this).find(":selected").val()
+        console.log(what_kind)
 
-        if (what_kind == "CAN GOODS") {
-
+        if(what_kind == "RELIEF GOODS"){ 
             $('.recepient').css("display", "none");
             $('.confirmation_label').css("display", "block");
             $('.confirmation_photo').css("display", "block");
@@ -322,8 +325,8 @@
             $('.recepient_things').css("display", "block");
 
         }
-
-        if (what_kind == "WORK") {
+        
+        if(what_kind == "SERVICE"){ 
             $('.recepient').css("display", "none");
             $('.confirmation_label').css("display", "none");
             $('.confirmation_photo').css("display", "none");
@@ -332,32 +335,42 @@
             $('.date_sched').css("display", "block");
         }
 
-        if (what_kind == "BELONGINGS") {
-            $('.recepient').css("display", "none");
-            $('.confirmation_label').css("display", "block");
-            $('.confirmation_photo').css("display", "block");
-            $('.recepient_things').css("display", "block");
-            $('.volunteer_amount').css("display", "none");
-            $('.date_sched').css("display", "none");
-        }
+        if(what_kind == "WORK") {
+                $('.recepient').css("display", "none");
+                $('.confirmation_label').css("display", "none");
+                $('.confirmation_photo').css("display", "none");
+                $('.recepient_things').css("display", "none");
+                $('.volunteer_amount').css("display", "none");
+                $('.date_sched').css("display", "block");
+            }
 
-        if (what_kind == "EQUIPMENTS") {
-            $('.recepient').css("display", "none");
-            $('.confirmation_label').css("display", "block");
-            $('.confirmation_photo').css("display", "block");
-            $('.recepient_things').css("display", "block");
-            $('.volunteer_amount').css("display", "none");
-            $('.date_sched').css("display", "none");
-        }
+        if(what_kind == "BELONGINGS") {
+                $('.recepient').css("display", "none");
+                $('.confirmation_label').css("display", "block");
+                $('.confirmation_photo').css("display", "block");
+                $('.recepient_things').css("display", "block");
+                $('.volunteer_amount').css("display", "none");
+                $('.date_sched').css("display", "none");
+            }
 
-        if (what_kind == "MONEY") {
+        if(what_kind == "MONEY"){ 
             $('.recepient').css("display", "block");
-            $('.confirmation_label').css("display", "none");
-            $('.confirmation_photo').css("display", "none");
+            $('.confirmation_label').css("display", "block");
+            $('.confirmation_photo').css("display", "block");
             $('.recepient_things').css("display", "none");
             $('.volunteer_amount').css("display", "block");
             $('.date_sched').css("display", "none");
         }
 
+        if(what_kind == "EQUIPMENTS"){
+            $('.recepient').css("display", "none");
+            $('.confirmation_label').css("display", "block");
+            $('.confirmation_photo').css("display", "block");
+            $('.recepient_things').css("display", "block");
+            $('.volunteer_amount').css("display", "none");
+            $('.date_sched').css("display", "none");
+        }
+
     });
+    
 </script>

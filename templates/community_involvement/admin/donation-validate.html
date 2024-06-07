@@ -35,11 +35,12 @@
                     <th>Date</th>
                     <th>Status</th>
                     <th>Details</th>
-                    {% if status == None %}
-                    <th>Options</th>
-                    {% else %}
+                    {% if status == "Accepted"  %}
                     
+                    {% elif status == None %}
+                    <th>Options</th>
                     {% endif %}
+
                 </tr>
             </thead>
             <tbody>
@@ -56,16 +57,22 @@
                     {% elif donates.status == "Declined" %}
                     <td style="color: rgb(227, 62, 62); font-weight: bold;">Declined</td>
                     {% endif %}
-                    <td class="view"><a target="_blank" href="/media/{{ donates.image_details }}">View</a></td>
 
-                    {% if donates.status != None %}
+                    {% if donates.what_kind != "SERVICE" %}
+                    <td class="view"><a target="_blank" href="/media/{{ donates.image_details }}">View</a></td>
                     {% else %}
+                    <td></td>
+                    {% endif %}
+
+                    {% if donates.status == None %}
                     <td class="options">
                         <a style="color: rgb(41, 142, 41); font-weight: bold;"
                             href="{% url 'donation_accept' donates.id %}">Accept</a>
                         <a style="color: rgb(227, 62, 62); font-weight: bold;"
                             href="{% url 'donation_decline' donates.id %}">Decline</a>
                     </td>
+                    {% else %}
+                    
                     {% endif %}
 
                 </tr>
