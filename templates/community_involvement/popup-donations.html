@@ -129,9 +129,8 @@
                 {% else %}
                 <form class="mode2" action="{% url 'bank-mode' %}" method="POST" enctype="multipart/form-data">
                     {% csrf_token %}
-
+                    <h1>Bank Details</h1>
                     <div class="bank-form">
-                        <h1>Bank Details</h1>
                         <input class="title" name="title" type="hidden" value="">
                         <input id="bank_name" name="name" type="text" placeholder="Enter Name" required>
                         <select name="banks" class="bank_card" required>
@@ -162,13 +161,11 @@
                         <button type="button" class="nextBank">Next</button>
                     </div>
                     <div class="bank-img">
-                        <h1>Scan to Donate</h1>
                         {% for qrcode in qrCodeID %}
                         <div id="qr_bank">
                             <img src="">
                         </div>
                         {% endfor %}
-
                         <label for="">Take screenshot of your reciept.</label>
                         <input type="file" accept="image/*" name="images" onchange="loadImage(event)" required>
                         <button type="submit">Submit</button>
@@ -213,9 +210,9 @@
                 </form>
             </div>
 
-
         </div>
     </div>
+</div>
 </div>
 {% for qrcode in qrCodeID %}
 <script src="/static/community_involvement/jquery.js"></script>

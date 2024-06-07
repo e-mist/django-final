@@ -1008,6 +1008,7 @@ def gcash_mode_admin(request, id):
 
     return redirect("projects")
 
+
 def bank_mode(request):
     if request.method == "POST":
         MOD(request.POST)
@@ -1035,30 +1036,31 @@ def bank_mode(request):
 
     return redirect("projects")
 
+
 def bank_mode_admin(request, id):
     qr = request.FILES.getlist("images")
-    banks = request.POST.get('banks')
+    banks = request.POST.get("banks")
 
     for image in qr:
         if int(QrDonation.objects.count()) == 0:
             if banks == "BPI":
                 qrCode = QrDonation(bpi=image)
-            
+
             if banks == "BDO":
                 qrCode = QrDonation(bdo=image)
 
             if banks == "LANDBACK":
                 qrCode = QrDonation(landbank=image)
-            
+
             if banks == "PNB":
                 qrCode = QrDonation(pnb=image)
-            
+
             if banks == "METRO BANK":
                 qrCode = QrDonation(metro=image)
-            
+
             if banks == "UNION BANK":
                 qrCode = QrDonation(union=image)
-            
+
             if banks == "CHINA BANK":
                 qrCode = QrDonation(china=image)
 
@@ -1067,28 +1069,29 @@ def bank_mode_admin(request, id):
 
             if banks == "BPI":
                 qrCode.bpi = image
-            
+
             if banks == "BDO":
                 qrCode.bdo = image
 
             if banks == "LANDBACK":
                 qrCode.landbank = image
-            
+
             if banks == "PNB":
                 qrCode.pnb = image
-            
+
             if banks == "METRO BANK":
                 qrCode.metro = image
-            
+
             if banks == "UNION BANK":
                 qrCode.union = image
-            
+
             if banks == "CHINA BANK":
                 qrCode.china = image
 
         qrCode.save()
 
     return redirect("projects")
+
 
 def volunteer_mode(request):
     if request.method == "POST":
@@ -1110,16 +1113,14 @@ def volunteer_mode(request):
                     name=name,
                     contact_number=contact_number,
                     what_kind=what_kind,
-                    recepient_things=request.POST['recepient_things'],
+                    recepient_things=request.POST["recepient_things"],
                     image_details=image,
                 )
 
                 donation.save()
-        
+
         # date_sched = request.POST["date_sched"]
         # amount = request.POST["amount"]
-
-        
 
     return redirect("projects")
 
@@ -1193,21 +1194,26 @@ def dashboard(request):
 
 def donation_validate(request):
     loadDonations = MOD.objects.filter(status=None)
-    
-    contex = {}
 
-    for status in loadDonations:
-        if status == None:
-            context = {
+    context = {}
+
+    if int(MOD.objects.count()) == 0:
+        context = {
             "url": "report",
-            "loadDonations": loadDonations,
-            "status": status
-            }
-        else:
-            context = {
-            "url": "report",
-            "loadDonations": loadDonations,
-            }
+        }
+    else:
+        for status in loadDonations:
+            if status == None:
+                context = {
+                    "url": "report",
+                    "loadDonations": loadDonations,
+                    "status": status,
+                }
+            else:
+                context = {
+                    "url": "report",
+                    "loadDonations": loadDonations,
+                }
 
     return render(
         request,
@@ -1238,7 +1244,7 @@ def donation_filter(request):
 
     return render(
         request,
-        "community_involvement/admin/donation.html",
+        "community_involvement/admin/donation-validate.html",
         {"loadDonations": filterStatus},
     )
 
