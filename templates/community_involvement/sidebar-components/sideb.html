@@ -90,6 +90,7 @@
                 <li><a href="{% url 'programs' %}">Events</a></li>
                 <li><a href="{% url 'projects' %}">CrowdFunding Projects</a></li>
                 {% if user %}
+                <li><a href="{% url 'donation-validate' %}">Donation Validate</a></li>
                 <li><a href="{% url 'reports' %}">Transaction Reports</a></li>
                 {% else %}
                 {% endif %}

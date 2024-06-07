@@ -1227,15 +1227,21 @@ def donation_decline(request, id):
 
     return redirect("donation")
 
+
 def donation_filter(request):
     if request.method == "POST":
-        statusFilter = request.POST.get('filterStatus')
+        statusFilter = request.POST.get("filterStatus")
 
         # print(statusFilter)
 
         filterStatus = MOD.objects.filter(status=statusFilter)
 
-    return render(request, 'community_involvement/admin/donation.html', {'loadDonations':filterStatus})
+    return render(
+        request,
+        "community_involvement/admin/donation.html",
+        {"loadDonations": filterStatus},
+    )
+
 
 def calculate_age(birth_date):
     today = datetime.today()
